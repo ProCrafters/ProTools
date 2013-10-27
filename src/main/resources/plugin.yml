@@ -1,0 +1,12 @@
+name: ProTools
+version: Release 1.0
+website: https://github.com/TheMolkaPL/ProTools
+author: TheMolkaPL
+description: Plugin stworzony specjalnie dla ProCrafters!
+
+main: pl.themolka.protools.ProTools
+
+commands:
+    protools:
+        description: Komendy pluginu ProTools
+        usage: /pt <about|border [radius]|reload>
