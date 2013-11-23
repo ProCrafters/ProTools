@@ -1,11 +1,9 @@
 package pl.themolka.protools;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ProtoolsCommand implements CommandExecutor {
 
@@ -27,16 +25,6 @@ public class ProtoolsCommand implements CommandExecutor {
 				}
 				if(args[0].equalsIgnoreCase("border")) {
 					return borderArg(sender);
-				}
-				if(args[0].equalsIgnoreCase("reload")) {
-					return reloadArg(sender);
-				} else {
-					return erArg(sender, "Podano bledny argument!");
-				}
-			}
-			if(args.length == 2) {
-				if(args[0].equalsIgnoreCase("border")) {
-					return setBorderArg(sender, args[0]);
 				} else {
 					return erArg(sender, "Podano bledny argument!");
 				}
@@ -62,40 +50,8 @@ public class ProtoolsCommand implements CommandExecutor {
 	}
 	
 	private boolean borderArg(CommandSender sender) {
-		sender.sendMessage(ChatColor.GOLD + "[ProTools] " + ChatColor.GRAY + "Aktualny promien mapy to " + Border.getRadius() + ".");
+		sender.sendMessage(ChatColor.GOLD + "[ProTools] " + ChatColor.GRAY + "Aktualny promien mapy to " + ChatColor.GOLD + "4000" + ChatColor.GRAY + " kratek od spawnu.");
 		return true;
-	}
-	
-	private boolean reloadArg(CommandSender sender) {
-		if(!sender.hasPermission("protools.reload")) {
-			sender.sendMessage(ChatColor.GOLD + "[ProTools] " + Util.permissions());
-			return true;
-		}
-		sender.sendMessage(ChatColor.GOLD + "[ProTools] " + ChatColor.GRAY + "Przeladowywanie pliku config.yml...");
-		plugin.reloadConfig();
-		sender.sendMessage(ChatColor.GOLD + "[ProTools] " + ChatColor.DARK_GREEN + "Pomyslnie przeladowano plik config.yml");
-		return true;
-	}
-	
-	private boolean setBorderArg(CommandSender sender, String arg) {
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(ChatColor.RED + "Nie mozesz uzyc tej komendy z poziomu konsoli!");
-			return true;
-		}
-		if(!sender.hasPermission("protools.setborder")) {
-			sender.sendMessage(ChatColor.GOLD + "[ProTools] " + Util.permissions());
-			return true;
-		}
-		Player player = (Player) sender;
-		Location location = player.getLocation();
-		try {
-			int radius = Integer.parseInt(arg);
-			Border.setBorder(player, location, radius);
-			return true;
-		} catch(NumberFormatException ex) {
-			sender.sendMessage(ChatColor.GOLD + "[ProTools] " + ChatColor.RED + "Promien musi byc liczba!");
-			return true;
-		}
 	}
 	
 }
